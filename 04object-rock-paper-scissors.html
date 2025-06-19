@@ -32,6 +32,14 @@
       Scissors
     </button>
 
+    <button
+      onclick="
+      resetGame();
+    "
+    >
+      Reset
+    </button>
+
     <script>
       //object to reset result from zero
       const score = {
@@ -60,8 +68,6 @@
           // );
           console.log(result);
         } else if (playerMove === "paper") {
-
-
           if (computerMove === "rock") {
             result = "You win";
           } else if (computerMove === "paper") {
@@ -121,6 +127,10 @@
         }
 
         return computerMove;
+      }
+
+      function resetGame() {
+        score((score.losses = 0), (score.wins = 0), (score.ties = 0));
       }
     </script>
   </body>
