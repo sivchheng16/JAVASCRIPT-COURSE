@@ -35,6 +35,7 @@
     <button
       onclick="
       resetGame();
+      localStorage.removeItem('score')
     "
     >
       Reset
@@ -42,11 +43,33 @@
 
     <script>
       //object to reset result from zero
-      const score = {
+      /*const score = {
         wins: 0,
         losses: 0,
         ties: 0,
       };
+      */
+
+      //const score is replace use by localstrage to save score don't restart from zero  (1 last)
+      let score = JSON.parse(localStorage.getItem("score")) || {
+        wins: 0,
+        losses: 0,
+        ties: 0,
+      };
+
+      //check if score value is null (top)
+      // if (score === null) {
+      //   score = {
+      //     wins: 0,
+      //     losses: 0,
+      //     ties: 0,
+      //   };
+      // }
+
+      //local strorage save score----   (1 first )
+      //Convert score is string to object use JSON
+
+      console.log(JSON.parse(localStorage.getItem("score")));
 
       //player move the game when click-----
       function playGame(playerMove) {
@@ -66,7 +89,6 @@
           // alert(
           //   `You picked ${playerMove}. Computer picked ${computerMove}. ${result}`
           // );
-          console.log(result);
         } else if (playerMove === "paper") {
           if (computerMove === "rock") {
             result = "You win";
@@ -75,10 +97,6 @@
           } else if (computerMove === "scissors") {
             result = "You lose";
           }
-          // alert(
-          //   `You picked ${playerMove}. Computer picked ${computerMove}. ${result}`
-          // );
-          console.log(result);
         } else {
           if (computerMove === "rock") {
             result = "Tie";
@@ -87,14 +105,8 @@
           } else if (computerMove === "scissors") {
             result = "You win";
           }
-          // alert(
-          //   `You picked ${playerMove}. Computer picked ${computerMove}. ${result}`
-          // );
-          console.log(result);
         }
-        alert(
-          `You picked ${playerMove}. Computer picked ${computerMove}. ${result}`
-        );
+
         //update score
         if (result === "You win") {
           score.wins++;
@@ -103,14 +115,33 @@
         } else {
           score.ties++;
         }
+
+        //display resule in pupop or message alert
+        alert(
+          `You picked ${playerMove}. Computer picked ${computerMove}. ${result}.
+          \nWins:${score.wins} Loses:${score.losses} Ties:${score.ties}`
+        );
+        console.log(result)
+
         console.log(
           `wins:${score.wins};loses:${score.losses};tie:${score.ties}`
         );
 
-        //alert message---
-        // alert(
-        //   `You picked ${playerMove}. Computer picked ${computerMove}. ${result}`
-        // );
+        //save score
+        //All localstroage is only spport string (this time convert Object score to string ) used JSON
+        localStorage.setItem("score", JSON.stringify(score));
+      }
+
+      //reset score game from zero
+      function resetGame() {
+        const score = {
+          wins: 0,
+          losses: 0,
+          ties: 0,
+        };
+
+        alert(`GAME WAS RESET \n Wins:0 Loses:0 Tie:0`);
+        console.log(` Wins:0 Loses:0 Tie:0`);
       }
 
       //this function for random pick for computer
@@ -129,8 +160,13 @@
         return computerMove;
       }
 
+      //reset score game from zero
       function resetGame() {
-        score((score.losses = 0), (score.wins = 0), (score.ties = 0));
+        (score.wins = 0),
+          (score.losses = 0),
+          (score.ties = 0),
+          alert(`GAME WAS RESET \n Wins:0 Loses:0 Tie:0`);
+        console.log(` Wins:0 Loses:0 Tie:0`);
       }
     </script>
   </body>
