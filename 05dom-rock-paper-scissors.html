@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>object</title>
+    <title>dom</title>
   </head>
   <body>
     <p>Rock Paper Scissors</p>
@@ -31,11 +31,17 @@
     >
       Scissors
     </button>
+    <p class="js-result"></p>
+    <p class="js-move"></p>
+
+    <p class="js-score"></p>
 
     <button
       onclick="
       resetGame();
       localStorage.removeItem('score')
+      updateScoreElement();
+      
     "
     >
       Reset
@@ -56,6 +62,9 @@
         losses: 0,
         ties: 0,
       };
+
+      //dom
+      updateScoreElement();
 
       //check if score value is null (top)
       // if (score === null) {
@@ -86,9 +95,6 @@
           } else if (computerMove === "scissors") {
             result = "Tie";
           }
-          // alert(
-          //   `You picked ${playerMove}. Computer picked ${computerMove}. ${result}`
-          // );
         } else if (playerMove === "paper") {
           if (computerMove === "rock") {
             result = "You win";
@@ -116,20 +122,32 @@
           score.ties++;
         }
 
+        //save score
+        //All localstroage is only spport string (this time convert Object score to string ) used JSON
+        localStorage.setItem("score", JSON.stringify(score));
+
+        //dom
+        updateScoreElement();
+
+        document.querySelector('.js-result').innerHTML = result;
+        document.querySelector('.js-move').innerHTML = `You ${playerMove} - ${computerMove} Computer`;
+
         //display resule in pupop or message alert
-        alert(
-          `You picked ${playerMove}. Computer picked ${computerMove}. ${result}.
-          \nWins:${score.wins} Loses:${score.losses} Ties:${score.ties}`
-        );
-        console.log(result)
+        // alert(
+        //   `You picked ${playerMove}. Computer picked ${computerMove}. ${result}.
+        //   \nWins:${score.wins} Loses:${score.losses} Ties:${score.ties}`
+        // );
+        // console.log(result);
 
         console.log(
           `wins:${score.wins};loses:${score.losses};tie:${score.ties}`
         );
+      }
 
-        //save score
-        //All localstroage is only spport string (this time convert Object score to string ) used JSON
-        localStorage.setItem("score", JSON.stringify(score));
+      function updateScoreElement() {
+        document.querySelector(
+          ".js-score"
+        ).innerHTML = `Wins:${score.wins} Loses:${score.losses} Ties:${score.ties}`;
       }
 
       //reset score game from zero
@@ -142,6 +160,7 @@
 
         alert(`GAME WAS RESET \n Wins:0 Loses:0 Tie:0`);
         console.log(` Wins:0 Loses:0 Tie:0`);
+        //dom
       }
 
       //this function for random pick for computer
@@ -165,7 +184,7 @@
         (score.wins = 0),
           (score.losses = 0),
           (score.ties = 0),
-        console.log(` GAME WAS RESTART \nWins:0 Loses:0 Tie:0`);
+          console.log(` GAME WAS RESTART \nWins:0 Loses:0 Tie:0`);
       }
     </script>
   </body>
