@@ -3,37 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dom</title>
+    <title>ROCK PAPER SCISSORS</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        background-color: black;
+        color: white;
+      }
+
+      .title {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .js-btn {
+        background: transparent;
+        border: 3px solid white;
+        border-radius: 60px;
+        margin: 10px;
+      }
+
+      .move-btn {
+        padding: 10px;
+        margin: 10px;
+        border: none;
+        background: transparent;
+        width: 50px;
+        height: 50px;
+        border-radius: 60px;
+      }
+
+      .result {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .reset-btn {
+        font-size: 15px;
+        padding: 7px 20px;
+        border: none;
+      }
+    </style>
   </head>
   <body>
-    <p>Rock Paper Scissors</p>
+    <p class="title">Rock Paper Scissors</p>
 
     <button
       onclick="
       playGame('rock')
     "
+      class="js-btn"
     >
-      Rock
+      <img src="images/rock-emoji.png" class="move-btn" />
     </button>
 
     <button
       onclick="
       playGame('paper')
     "
+      class="js-btn"
     >
-      Paper
+      <img src="images/paper-emoji.png" class="move-btn" />
     </button>
 
     <button
       onclick="
         playGame('scissors')
     "
+      class="js-btn"
     >
-      Scissors
+      <img src="images/scissors-emoji.png" class="move-btn" />
     </button>
-    <p class="js-result"></p>
+    <p class="js-result result"></p>
     <p class="js-move"></p>
-
     <p class="js-score"></p>
 
     <button
@@ -43,6 +86,7 @@
       updateScoreElement();
       
     "
+      class="reset-btn"
     >
       Reset
     </button>
@@ -130,10 +174,12 @@
         updateScoreElement();
 
         document.querySelector(".js-result").innerHTML = result;
-        document.querySelector(
-          ".js-move"
-        ).innerHTML = `You ${playerMove} - ${computerMove} Computer`;
-
+        document.querySelector(".js-move").innerHTML = `
+      You
+      <img src="images/${playerMove}-emoji.png " class="move-btn" />
+      <img src="images/${computerMove}-emoji.png" class="move-btn" />
+      computer;
+      `;
         //display resule in pupop or message alert
         // alert(
         //   `You picked ${playerMove}. Computer picked ${computerMove}. ${result}.
